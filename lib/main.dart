@@ -1,12 +1,35 @@
 import 'package:dio_api/view/my_index.dart';
-import 'package:dio_api/view/user_list.dart';
 import 'package:dio_api/view_model.dart/user_view_model.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'controller/api_service.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 // Main function to run the app
 Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
+  if (kIsWeb) {
+  }
+  else{
+    await Firebase.initializeApp();
+
+    // Set user ID for Firebase Crashlytics
+    FirebaseCrashlytics.instance.setUserIdentifier('user123');
+
+    FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    };
+    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: false);
+      return true;
+    };
+    //await FirebaseAnalytics.instance.setUserId(id: '123456');
+  }
 
   // Create a multi-provider for the app and provide UserViewModel
   runApp(

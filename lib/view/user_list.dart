@@ -1,6 +1,7 @@
 // Step 5: Create the view
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../controller/logger_interceptor.dart';
 import '../view_model.dart/user_view_model.dart';
 
 class UserList extends StatefulWidget {
@@ -14,6 +15,11 @@ class _UserListState extends State<UserList> {
   @override
   void initState() { // Called when the state object is inserted into the tree.
     super.initState();
+    logDebug('Debug message', level: Level.debug);
+    logDebug('Info message', level: Level.info);
+    logDebug('Warning message', level: Level.warning);
+    logDebug('Error message', level: Level.error);
+    logDebug('Critical message', level: Level.wtf);
 
     final userViewModel = Provider.of<UserViewModel>(context, listen: false); // Fetches userViewModel object
     userViewModel.fetchUsers(); // Calls the method to fetch the users
