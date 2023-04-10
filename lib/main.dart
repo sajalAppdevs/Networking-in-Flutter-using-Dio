@@ -10,15 +10,12 @@ import 'package:firebase_core/firebase_core.dart';
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  //await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
   if (kIsWeb) {
+
   }
   else{
+    // Firebase Crashlytics is only supported in Flutter for iOS, Android, and macOS.
     await Firebase.initializeApp();
-
-    // Set user ID for Firebase Crashlytics
-    FirebaseCrashlytics.instance.setUserIdentifier('user123');
 
     FlutterError.onError = (errorDetails) {
       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
@@ -28,7 +25,8 @@ Future<void> main() async {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: false);
       return true;
     };
-    //await FirebaseAnalytics.instance.setUserId(id: '123456');
+    // Set user ID for Firebase Crashlytics
+    FirebaseCrashlytics.instance.setUserIdentifier('5514');
   }
 
   // Create a multi-provider for the app and provide UserViewModel
