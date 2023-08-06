@@ -41,20 +41,17 @@ class DioFirebasePerformanceInterceptor extends Interceptor {
         options.method.asHttpMethod()!,
       );
 
-
-
       final requestKey = options.extra.hashCode;
       _map[requestKey] = metric;
       final requestContentLength = requestContentLengthMethod(options);
 
-
-
       // Add user details like user ID to the trace.
-      metric.putAttribute('User', '12345671');
+      //metric.putAttribute('User', '12345671');
+      if(userId!=null){
+        metric.putAttribute('User', userId!);
+      }
       // Add platform details to the trace.
       metric.putAttribute('Platform', Platform.operatingSystem);
-
-
 
       if (accurateTiming) {
         await metric.start();
@@ -83,7 +80,7 @@ class DioFirebasePerformanceInterceptor extends Interceptor {
   }
 
   @override
-  Future onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future onError(DioException err, ErrorInterceptorHandler handler) async {
     try {
       final requestKey = err.requestOptions.extra.hashCode;
       final metric = _map[requestKey];

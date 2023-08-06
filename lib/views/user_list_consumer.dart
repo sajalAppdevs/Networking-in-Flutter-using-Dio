@@ -1,25 +1,19 @@
-// Step 5: Create the view
+// views/user_list_consumer.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../controller/logger_interceptor.dart';
-import '../view_model.dart/user_view_model.dart';
+import '../viewmodels/user_view_model.dart';
 
-class UserList extends StatefulWidget {
-  const UserList({super.key}); // A stateful widget to display the users
+class UserListConsumer extends StatefulWidget {
+  const UserListConsumer({super.key}); // A stateful widget to display the users
 
   @override
-  State<UserList> createState() => _UserListState(); // Returns the state of the widget
+  State<UserListConsumer> createState() => _UserListConsumerState(); // Returns the state of the widget
 }
 
-class _UserListState extends State<UserList> {
+class _UserListConsumerState extends State<UserListConsumer> {
   @override
   void initState() { // Called when the state object is inserted into the tree.
     super.initState();
-    logDebug('Debug message', level: Level.debug);
-    logDebug('Info message', level: Level.info);
-    logDebug('Warning message', level: Level.warning);
-    logDebug('Error message', level: Level.error);
-    logDebug('Critical message', level: Level.wtf);
 
     final userViewModel = Provider.of<UserViewModel>(context, listen: false); // Fetches userViewModel object
     userViewModel.fetchUsers(); // Calls the method to fetch the users

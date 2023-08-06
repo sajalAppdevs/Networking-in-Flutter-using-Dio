@@ -1,7 +1,9 @@
+
 import 'package:dio/dio.dart';
 
 const String apiKey =
     'cdc9a8ca8aa17b6bed3aa3611a835105bbb4632514d7ca8cf55dbbc5966a7cae';
+
 //* Request methods PUT, POST, PATCH, DELETE needs access token,
 //* which needs to be passed with "Authorization" header as Bearer token.
 class AuthorizationInterceptor extends Interceptor {
